@@ -14,28 +14,40 @@ namespace Userauthentication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private  DBContextClass _context;
-        private readonly string con = null;
-
-        private Common common;
+      
+        private readonly  DBContextClass _context;
+      
+        string sess;
+        private Common common = null;
         public HomeController(DBContextClass dbclass)
         {
          
-           // _context = dbclass;          
-           // con = dbclass.Database.GetDbConnection().ConnectionString;
+            _context = dbclass;          
+         
             
         }
-
         public IActionResult Index()
         {
+            sess = HttpContext.Session.GetString("UserName");
+
+            if (sess == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public IActionResult Login()
+        {
           
-            //  _context = new DBContextClass();
+          
             return View();
         }
         public IActionResult CreateUser()
         {
-            string sess = HttpContext.Session.GetString("UserName");
+             sess = HttpContext.Session.GetString("UserName");
 
             if (sess == null)
             {
@@ -48,7 +60,17 @@ namespace Userauthentication.Controllers
         }
         public IActionResult UserList()
         {
-            return View();
+            sess = HttpContext.Session.GetString("UserName");
+
+            if (sess == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+               
         }
         public IActionResult Privacy()
         {
@@ -59,11 +81,11 @@ namespace Userauthentication.Controllers
         [HttpPost]
         public IActionResult Login(User login)
         {
-            _context = new DBContextClass();
-                     
+            //_context = new DBContextClass();
+            common = new Common();
             string pass = common.Encrypt(login.Password);
 
-            var loginqry = from lgn in _context.Users
+            var loginqry = from lgn in _context.User
                           
                            where lgn.Password == pass && lgn.Email == login.Email
 

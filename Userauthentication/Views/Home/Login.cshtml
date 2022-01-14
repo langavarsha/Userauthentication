@@ -1,0 +1,55 @@
+﻿@model Userauthentication.Models.User
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+</div>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                                {
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>                                      
+                                    </div>
+
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign In</h5>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="email" asp-for="Email" required class="form-control form-control-lg" />
+                                        <label class="form-label" for="form2Example17">Email address</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" asp-for="Password" required class="form-control form-control-lg" />
+                                        <label class="form-label" for="form2Example27">Password</label>
+                                    </div>
+
+                                    <div class="pt-1 mb-4">
+                                        <button class="btn btn-dark btn-lg btn-block" value="Login" asp-action="" type="submit">Login</button>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
